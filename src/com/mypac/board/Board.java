@@ -18,6 +18,22 @@ public abstract class Board {
         this.height = height;
     }
 
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
     public abstract void fillBoard(List<Integer> list);
     public abstract List<Key> availableSpace();
     public abstract void addItem(Key key, Integer value);

@@ -6,38 +6,36 @@ import java.util.ListIterator;
 
 public class GameHelper {
     public List<Integer> moveAndMergeEqual(List<Integer> list) {
-        var reslistsize = list.size();
-        List<Integer> reslist = new ArrayList<Integer>(reslistsize);
+        var resListSize = list.size();
+        List<Integer> resList = new ArrayList<Integer>(resListSize);
 
         if(list.isEmpty()){
-            return reslist;
+            return resList;
         }
 
-        List<Integer> listextnull = new ArrayList<>();
+        List<Integer> listExtNull = new ArrayList<>();
         for (Integer i : list) {
             if (i != null){
-                listextnull.add(i);
+                listExtNull.add(i);
             }
         }
-        var listextnullsize = listextnull.size();
+        var listExtNullSize = listExtNull.size();
 
-        for (int i = 0; i < reslistsize; i++) {
-            if(i < listextnullsize){
-                var curval = listextnull.get(i);
-                if (i < listextnullsize - 1 && curval == listextnull.get(i+1)){
-                    reslist.add(curval * 2);
+        for (int i = 0; i < resListSize; i++) {
+            if(i < listExtNullSize){
+                var curVal = listExtNull.get(i);
+                if (i < listExtNullSize - 1 && curVal == listExtNull.get(i+1)){
+                    resList.add(curVal * 2);
                     i++;
-                    reslistsize ++;///
+                    resListSize ++;///
                 } else {
-                    reslist.add(curval);
+                    resList.add(curVal);
                 }
             } else {
-                reslist.add(null);
+                resList.add(null);
             }
-
         }
-        //ListIterator<Integer> iteratorini = list.listIterator();
 
-        return reslist;
+        return resList;
     }
 }

@@ -20,12 +20,12 @@ public class SquareBoard extends Board{
     @Override
     public void fillBoard(List<Integer> list) {
         board.clear();
-        int ilist = 0;
-        int listsize = list.size();
+        int iList = 0;
+        int listSize = list.size();
         for (int i = 0; i < width; i++){
             for (int j = 0; j < height; j++){
-                if(ilist < listsize){
-                    board.put(new Key(i, j), list.get(ilist++));
+                if(iList < listSize){
+                    board.put(new Key(i, j), list.get(iList++));
                 } else{
                     board.put(new Key(i, j), null); //make error or break
                 }
@@ -40,13 +40,13 @@ public class SquareBoard extends Board{
      */
     @Override
     public List<Key> availableSpace() {
-        List<Key> listkeyspace = new ArrayList<Key>();
+        List<Key> listKeySpace = new ArrayList<Key>();
         for (var entry : board.entrySet()) {
             if (entry.getValue() == null){
-                listkeyspace.add(entry.getKey());
+                listKeySpace.add(entry.getKey());
             }
         }
-        return listkeyspace;
+        return listKeySpace;
     }
 
     /**
@@ -67,9 +67,10 @@ public class SquareBoard extends Board{
      */
     @Override
     public Key getKey(int i, int j) {
-        var checkkey = new Key(i,j);
-        if (board.containsKey(checkkey)){
-            return checkkey;
+        for(Key key: board.keySet()){
+            if(key.getI() == i && key.getJ() == j){
+                return key;
+            }
         }
         return null;
     }
@@ -91,11 +92,11 @@ public class SquareBoard extends Board{
      */
     @Override
     public List<Key> getColumn(int j) {
-        List<Key> listkeycol = new ArrayList<Key>();
+        List<Key> listKeyCol = new ArrayList<Key>();
         for(int i = 0; i < width; i++){
-            listkeycol.add(getKey(i, j)); // check getKey
+            listKeyCol.add(getKey(i, j)); // check getKey
         }
-        return listkeycol;
+        return listKeyCol;
     }
 
     /**
@@ -105,11 +106,11 @@ public class SquareBoard extends Board{
      */
     @Override
     public List<Key> getRow(int i) {
-        List<Key> listkeyrow = new ArrayList<Key>();
+        List<Key> listKeyRow = new ArrayList<Key>();
         for (int j = 0; j < height; j++){
-            listkeyrow.add(getKey(i, j)); // check getKey
+            listKeyRow.add(getKey(i, j)); // check getKey
         }
-        return listkeyrow;
+        return listKeyRow;
     }
 
     /**
@@ -130,9 +131,9 @@ public class SquareBoard extends Board{
     @Override
     public List<Integer> getValues(List<Key> keys) {
         List<Integer> values = new ArrayList<Integer>();
-        for (ListIterator<Key> keysiterator = keys.listIterator(); keysiterator.hasNext(); ) {
-            //Key elementkey = keysiterator.next();
-            values.add(board.get(keysiterator.next()));
+        for (ListIterator<Key> keysIterator = keys.listIterator(); keysIterator.hasNext(); ) {
+            //Key elementKey = keysIterator.next();
+            values.add(board.get(keysIterator.next()));
         }
         return values;
     }

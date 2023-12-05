@@ -2,7 +2,6 @@ package com.mypac.game;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 
 public class GameHelper {
     public List<Integer> moveAndMergeEqual(List<Integer> list) {

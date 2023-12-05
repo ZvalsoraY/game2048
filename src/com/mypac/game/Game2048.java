@@ -5,12 +5,11 @@ import com.mypac.direction.Direction;
 import com.mypac.key.Key;
 
 import javax.swing.event.ChangeListener;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+
 
 import static java.util.Arrays.asList;
+import static java.util.Collections.reverse;
 
 public class Game2048 implements Game{
 
@@ -50,18 +49,38 @@ public class Game2048 implements Game{
         if (canMove() != false){
             switch (direction){
                 case RIGHT -> {
-                    for (int j = 0; j < board.getWidth(); j++) {
-                        //helper.moveAndMergeEqual(board.getRow(j))
+                    for (int j = 0; j < board.getHeight(); j++) {
+                        var x = helper.moveAndMergeEqual(board.getValues( board.getRow(j)));
+                        Collections.reverse(x);
+                        for (int i = 0; i < x.size(); i++) {
+                            board.addItem(board.getKey(i,j),x.get(i));
+                        }
                     }
                 }
                 case LEFT -> {
-
+                    for (int j = 0; j < board.getHeight(); j++) {
+                        var x = helper.moveAndMergeEqual(board.getValues( board.getRow(j)));
+                        for (int i = 0; i < x.size(); i++) {
+                            board.addItem(board.getKey(i,j),x.get(i));
+                        }
+                    }
                 }
                 case FORWARD -> {
-
+                    for (int i = 0; i < board.getWidth(); i++) {
+                        var y = helper.moveAndMergeEqual(board.getValues( board.getColumn(i)));
+                        for (int j = 0; j < y.size(); j++) {
+                            board.addItem(board.getKey(i,j),y.get(j));
+                        }
+                    }
                 }
                 case BACK -> {
-
+                    for (int i = 0; i < board.getWidth(); i++){
+                        var y = helper.moveAndMergeEqual(board.getValues( board.getColumn(i)));
+                        Collections.reverse(y);
+                        for (int j = 0; j < y.size(); j++) {
+                            board.addItem(board.getKey(i,j),y.get(j));
+                        }
+                    }
                 }
             }
             return true;

@@ -4,12 +4,7 @@ import com.mypac.board.Board;
 import com.mypac.direction.Direction;
 import com.mypac.key.Key;
 
-import javax.swing.event.ChangeListener;
 import java.util.*;
-
-
-import static java.util.Arrays.asList;
-import static java.util.Collections.reverse;
 
 public class Game2048 implements Game{
 
@@ -27,7 +22,6 @@ public class Game2048 implements Game{
     @Override
     public void init() {
         board.fillBoard(new ArrayList<>(Arrays.asList(null, 2, 4, 8)));
-
     }
 
     /**
@@ -36,7 +30,22 @@ public class Game2048 implements Game{
      */
     @Override
     public boolean canMove() {
-        return !board.availableSpace().isEmpty();
+        if (!board.availableSpace().isEmpty()){
+            return true;
+        }
+        for (int i = 0; i < board.getHeight(); i++) {
+            var rowCurrent = board.getValues(board.getRow(i));
+            if (!rowCurrent.equals(helper.moveAndMergeEqual(rowCurrent))){
+                return true;
+            }
+        }
+        for (int j = 0; j < board.getWidth(); j++) {
+            var column = board.getValues(board.getColumn(j));
+            if (!column.equals(helper.moveAndMergeEqual(column))){
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

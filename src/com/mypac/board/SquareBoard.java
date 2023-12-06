@@ -1,7 +1,6 @@
 package com.mypac.board;
 
 import com.mypac.key.Key;
-import com.mypac.game.Game2048;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +30,6 @@ public class SquareBoard extends Board{
                 }
             }
         }
-
     }
 
     /**

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
-public class SquareBoard extends Board{
+public class SquareBoard<V> extends Board<Key,V>{
 
     public SquareBoard(int size) {
         super(size, size);
@@ -17,7 +17,7 @@ public class SquareBoard extends Board{
      * @param list nubers for board filling
      */
     @Override
-    public void fillBoard(List<Integer> list) {
+    public void fillBoard(List<V> list) {
         board.clear();
         int iList = 0;
         int listSize = list.size();
@@ -53,7 +53,7 @@ public class SquareBoard extends Board{
      * @param value
      */
     @Override
-    public void addItem(Key key, Integer value) {
+    public void addItem(Key key, V value) {
         board.put(key, value);
     }
 
@@ -75,11 +75,12 @@ public class SquareBoard extends Board{
 
     /**
      * Provide value by key.
+     *
      * @param key
      * @return
      */
     @Override
-    public Integer getValue(Key key) {
+    public V getValue(Key key) {
         return board.get(key);
     }
 
@@ -117,7 +118,7 @@ public class SquareBoard extends Board{
      * @return
      */
     @Override
-    public boolean hasValue(Integer value) {
+    public boolean hasValue(V value) {
         return board.containsValue(value);
     }
 
@@ -127,8 +128,8 @@ public class SquareBoard extends Board{
      * @return ArrayList of values
      */
     @Override
-    public List<Integer> getValues(List<Key> keys) {
-        List<Integer> values = new ArrayList<Integer>();
+    public List<V> getValues(List<Key> keys) {
+        List<V> values = new ArrayList<V>();
         for (ListIterator<Key> keysIterator = keys.listIterator(); keysIterator.hasNext(); ) {
             //Key elementKey = keysIterator.next();
             values.add(board.get(keysIterator.next()));

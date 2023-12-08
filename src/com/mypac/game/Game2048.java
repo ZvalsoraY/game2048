@@ -15,10 +15,6 @@ public class Game2048 implements Game{
     //Board board;
     Random random = new Random();
 
-    /*public Game2048(Board board) {
-        this.board = board;
-    }*/
-
     /**
      * Initiates the start of the game.
      */
@@ -61,58 +57,18 @@ public class Game2048 implements Game{
      * @return bool result of the move success ont not.
      */
     @Override
-    /*public boolean move(Direction direction) {
-        if (canMove() != false){
-            switch (direction){
-                case RIGHT -> {
-                    for (int j = 0; j < board.getHeight(); j++) {
-                        var x = helper.moveAndMergeEqual(board.getValues( board.getRow(j)));
-                        Collections.reverse(x);
-                        for (int i = 0; i < x.size(); i++) {
-                            board.addItem(board.getKey(i,j),x.get(i));
-                        }
-                    }
-                }
-                case LEFT -> {
-                    for (int j = 0; j < board.getHeight(); j++) {
-                        var x = helper.moveAndMergeEqual(board.getValues( board.getRow(j)));
-                        for (int i = 0; i < x.size(); i++) {
-                            board.addItem(board.getKey(i,j),x.get(i));
-                        }
-                    }
-                }
-                case FORWARD -> {
-                    for (int i = 0; i < board.getWidth(); i++) {
-                        var y = helper.moveAndMergeEqual(board.getValues( board.getColumn(i)));
-                        for (int j = 0; j < y.size(); j++) {
-                            board.addItem(board.getKey(i,j),y.get(j));
-                        }
-                    }
-                }
-                case BACK -> {
-                    for (int i = 0; i < board.getWidth(); i++){
-                        var y = helper.moveAndMergeEqual(board.getValues( board.getColumn(i)));
-                        Collections.reverse(y);
-                        for (int j = 0; j < y.size(); j++) {
-                            board.addItem(board.getKey(i,j),y.get(j));
-                        }
-                    }
-                }
-            }
-            return true;
-        }
-        return false;
-    }*/
     public boolean move(Direction direction) {
         if (canMove() != false){
             switch (direction){
                 case RIGHT -> {
-                    for (int j = 0; j < board.getHeight(); j++) {
-                        /*var x = helper.moveAndMergeEqual(board.getValues( board.getRow(j)));
-                        Collections.reverse(x);
-                        for (int i = 0; i < x.size(); i++) {
-                            board.addItem(board.getKey(i,j),x.get(i));
-                        }*/
+                    for (int i = 0; i < board.getHeight(); i++) {
+                        List<Integer> inputList = board.getValues( board.getRow(i));
+                        Collections.reverse(inputList);
+                        List<Integer> rowRight = helper.moveAndMergeEqual(inputList);
+                        int rowRightSize = rowRight.size();
+                        for (int j = 0; j < rowRightSize; j++) {
+                            board.addItem(board.getKey(i,rowRightSize - 1 - j),rowRight.get(j));
+                        }
                     }
                 }
                 case LEFT -> {
@@ -122,7 +78,6 @@ public class Game2048 implements Game{
                             board.addItem(board.getKey(i,j),rowLeft.get(j));
                         }
                     }
-                    addItem();
                 }
                 case FORWARD -> {
                     for (int j = 0; j < board.getWidth(); j++) {
@@ -134,18 +89,17 @@ public class Game2048 implements Game{
                 }
                 case BACK -> {
                     for (int j = 0; j < board.getWidth(); j++){
-                        List<Integer> colBack = helper.moveAndMergeEqual(board.getValues( board.getColumn(j)));
-                        /*Collections.reverse(colBack);
-                        for (int i = 0; i < colBack.size(); i++) {
-                            board.addItem(board.getKey(i,j),colBack.get(i));
-                        }*/
-                        Collections.reverse(colBack);
-                        for (int i = colBack.size() - 1; i >-1; i--) {
-                            board.addItem(board.getKey(i,j),colBack.get(i));
+                        List<Integer> inputList = board.getValues( board.getColumn(j));
+                        Collections.reverse(inputList);
+                        List<Integer> colBack = helper.moveAndMergeEqual(inputList);
+                        int colBackSize = colBack.size();
+                        for (int i = 0; i < colBackSize; i++) {
+                            board.addItem(board.getKey(colBackSize - 1 - i, j),colBack.get(i));
                         }
                     }
                 }
             }
+            addItem();
             return true;
         }
         return false;

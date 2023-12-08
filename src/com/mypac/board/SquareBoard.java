@@ -26,9 +26,10 @@ public class SquareBoard<V> extends Board<Key,V>{
                 if(iList < listSize){
                     board.put(new Key(i, j), list.get(iList++));
                 } else{
-                    board.put(new Key(i, j), null); //make error or break
+                    board.put(new Key(i, j), null); //may be make error or break
                 }
             }
+            System.out.println();
         }
     }
 

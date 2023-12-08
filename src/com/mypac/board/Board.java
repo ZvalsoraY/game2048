@@ -1,7 +1,5 @@
 package com.mypac.board;
 
-import com.mypac.key.Key;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

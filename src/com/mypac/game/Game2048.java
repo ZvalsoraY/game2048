@@ -3,6 +3,7 @@ package com.mypac.game;
 import com.mypac.board.Board;
 import com.mypac.board.SquareBoard;
 import com.mypac.direction.Direction;
+import com.mypac.exception.NotEnoughSpaceException;
 import com.mypac.key.Key;
 
 import java.util.*;
@@ -23,7 +24,11 @@ public class Game2048 implements Game{
         //board.fillBoard(new ArrayList<>(Arrays.asList(null, 2, 4, 8)));
         board.fillBoard(Collections.nCopies(GAME_SIZE * GAME_SIZE, null));
         for (int i = 0; i < 2; i++) {
-            addItem();
+            try {
+                addItem();
+            }catch (NotEnoughSpaceException except) {
+                System.out.println(except.getMessage());
+            }
         }
     }
 
@@ -58,7 +63,7 @@ public class Game2048 implements Game{
      */
     @Override
     public boolean move(Direction direction) {
-        if (canMove() != false){
+       // if (canMove() != false){
             switch (direction){
                 case RIGHT -> {
                     for (int i = 0; i < board.getHeight(); i++) {
@@ -99,17 +104,22 @@ public class Game2048 implements Game{
                     }
                 }
             }
-            addItem();
+            try {
+                addItem();
+            }
+            catch (NotEnoughSpaceException except){
+                return false;
+            }
             return true;
-        }
-        return false;
+        //}
+        //return false;
     }
 
     /**
      * Adds a new element to the game.
      */
     @Override
-    public void addItem() {
+    public void addItem() throws NotEnoughSpaceException {
         List<Key> freeSpaceKeys = board.availableSpace();
         if(!freeSpaceKeys.isEmpty()){
             Key keySpace = freeSpaceKeys.get(random.nextInt(freeSpaceKeys.size()));
@@ -120,7 +130,9 @@ public class Game2048 implements Game{
                 board.addItem(keySpace,2);
             }
         }
-
+        else {
+            throw new NotEnoughSpaceException("NotEnoughSpace");
+        }
     }
 
     /**

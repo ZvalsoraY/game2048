@@ -18,15 +18,18 @@ public class SquareBoard<V> extends Board<Key,V>{
      */
     @Override
     public void fillBoard(List<V> list) {
+        if (list.size() > width * height){
+            throw new RuntimeException(String.format("Size of input data more than board."));
+        }
         board.clear();
         int iList = 0;
         int listSize = list.size();
         for (int i = 0; i < width; i++){
             for (int j = 0; j < height; j++){
                 if(iList < listSize){
-                    board.put(new Key(i, j), list.get(iList++));
+                    addItem(new Key(i, j), list.get(iList++));
                 } else{
-                    board.put(new Key(i, j), null); //may be make error or break
+                    addItem(new Key(i, j), null); //may be make error or break
                 }
             }
             System.out.println();

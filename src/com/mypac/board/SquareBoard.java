@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.ListIterator;
 
 public class SquareBoard<V> extends Board<Key,V>{
-
     public SquareBoard(int size) {
         super(size, size);
     }
